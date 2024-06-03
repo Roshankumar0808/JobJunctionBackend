@@ -7,6 +7,7 @@ import applicationRouter from './routes/applicationRouter.js'
 import userRouter from './routes/userRouter.js'
 import jobRouter from './routes/jobRouter.js'
 import {dbConnection} from './database/dbConnection.js'
+import {errorMiddleWare} from './middlewares/error.js'
 const app=express();
 dotenv.config({path:"./config/config.env"});
 
@@ -30,5 +31,6 @@ app.use('/api/v1/job',jobRouter);
 app.use('/api/v1/application',applicationRouter);
 
 dbConnection();
+app.use(errorMiddleWare);
 export default app;
-//37min backend
+//1h21min backend
