@@ -18,7 +18,7 @@ app.use(cors({
 }));
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({exteneded:true}));
+app.use(express.urlencoded({extended:true}));
 
 app.use(
     fileUpload({
@@ -33,4 +33,4 @@ app.use('/api/v1/application',applicationRouter);
 dbConnection();
 app.use(errorMiddleWare);
 export default app;
-//1h21min backend
+//1h33min backend

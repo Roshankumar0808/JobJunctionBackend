@@ -1,4 +1,4 @@
-class ErrorHandeler extends Error{
+class ErrorHandler extends Error{
     constructor(message,statusCode){
         super(message);
         this.statusCode=statusCode;
@@ -13,7 +13,7 @@ export const errorMiddleWare=(err,req,res,next)=>{
         err=new ErrorHandler(message,400);
     }
     if(err.code===11000){
-        const message=`Duplicate  ${Object.keys(error.keyValue)} Entered`;
+        const message=`Duplicate  ${Object.keys(err.keyValue)} Entered`;
         err=new ErrorHandler(message,400);
     }
     if(err.name==="JsonWebTokenError"){
@@ -30,4 +30,4 @@ export const errorMiddleWare=(err,req,res,next)=>{
     });
 };
 
-export default ErrorHandeler;
+export default ErrorHandler;

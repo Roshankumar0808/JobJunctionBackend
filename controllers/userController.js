@@ -18,5 +18,28 @@ export const register= catchAsyncErrors(async(req,res,next)=>{
     role,
     password,
    });
-   sendToken(user,200,res,"User Registered Successfully!");
+   sendToken(user,201,res,"User Registered Successfully!");
 });
+
+export const login=catchAsyncErrors(async(req,res,next)=>{
+const {email,password,role}=req.body;
+if(!email||!password||!role){
+  return next(new ErrorHandler("Please Provide email,password and role."))
+}
+const user=await User.findOne({email}).select("+password");
+if(!user){
+  new next(new ErrorHandler("Invalid Email or Password",400));
+
+}
+const isPasswordMatched=await user.comparepassword(password);
+if(!isPasswordMatched){
+  return next(new ErrorHandler("Invalid Email or Password.",400));
+}
+if(user.role!==role){
+  return next(
+  new ErrorHandler("User With This Role Not Found!",404)
+  );
+
+}
+sendToken(user,201,res,"User logged in successfully!");
+})
